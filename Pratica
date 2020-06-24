@@ -1,0 +1,43 @@
+﻿<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns0="http://www.engdb.com.br/namespace">
+<xsl:strip-space elements="*"/>
+<xsl:template match="/">
+	<cliente>
+		<xsl:apply-templates />
+	</cliente>
+</xsl:template>
+
+<xsl:template match="cliente">
+	<xsl:variable name="nome"><xsl:value-of select="nome" /></xsl:variable>
+	<xsl:variable name="sobrenome"><xsl:value-of select="sobrenome" /></xsl:variable>
+	<xsl:variable name="nomeCompleto"><xsl:value-of select="concat($nome, ' ', $sobrenome)" /></xsl:variable>
+	<xsl:variable name="idade"><xsl:value-of select="idade" /></xsl:variable>
+	<nomeCompleto><xsl:value-of select="$nomeCompleto" /></nomeCompleto>
+
+	<xsl:choose>
+        <xsl:when test="$idade !=  ''">
+			<idade><xsl:value-of select="$idade" /></idade>
+        </xsl:when>
+        <xsl:otherwise>
+            <idade>Não informado</idade>
+        </xsl:otherwise>
+	</xsl:choose>
+	
+<lista_de_enderecos>
+	<xsl:for-each select="lista_de_enderecos/endereco">
+	
+		<enderecoConvertido>
+			<xsl:variable name="tipo" ><li><xsl:value-of select="tipo" /></li></xsl:variable>
+			<xsl:variable name="rua"><li><xsl:value-of select="rua" /></li></xsl:variable>
+			<xsl:variable name="numero"><li><xsl:value-of select="numero" /></li></xsl:variable>
+			<xsl:variable name="bairro"><li><xsl:value-of select="bairro" /></li></xsl:variable>
+			<xsl:variable name="enderecoCompleto"><xsl:value-of select="concat($rua,', ', $numero,' - ', $bairro)" /></xsl:variable>
+			
+			<tipo><xsl:value-of select="$tipo" /></tipo>
+			<enderecoCompleto><xsl:value-of select="$enderecoCompleto" /></enderecoCompleto>
+		</enderecoConvertido>
+		
+	</xsl:for-each>
+</lista_de_enderecos>
+
+</xsl:template>
+</xsl:stylesheet>
